@@ -31,3 +31,4 @@ CREATE TABLE produit(
     pro_libelle      VARCHAR(50),
     pro_description  VARCHAR(50)
 );
+
