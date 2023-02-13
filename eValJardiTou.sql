@@ -36,7 +36,7 @@ CREATE TABLE client(
 );
 
 CREATE TABLE produit(
-    ProCode          CHAR(6),
+    ProCode          INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Libelle          VARCHAR(100),
     Description      VARCHAR(250),
     Photo            VARCHAR(250),
@@ -49,7 +49,7 @@ CREATE TABLE produit(
 );
 
 CREATE TABLE fournisseur(
-    FouID                INT,
+    FouID                INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Nom                  VARCHAR(50),
     Adresse              VARCHAR(100),
     CP                   CHAR(5),
@@ -60,6 +60,6 @@ CREATE TABLE fournisseur(
 );
 
 CREATE TABLE rubrique(
-    RubID             INT,
+    RubID             INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     Libelle           VARCHAR(50)
 );
