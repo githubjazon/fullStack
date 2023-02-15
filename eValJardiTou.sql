@@ -1,103 +1,133 @@
-DROP DATABASE IF EXISTS `Jarditou`;
+DROP DATABASE IF EXISTS Jarditou;
 
-CREATE DATABASE `Jarditou`;
+CREATE DATABASE Jarditou;
 
-USE `Jarditou`;
-
-CREATE TABLE commande(
-    ComID             INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    DateCommande      DATE,
-    DateLivraison     DATE,
-    EtatCommande      VARCHAR(25),
-    EditionFacture    BIT(1),
-    Client            INT
-);
-
-CREATE TABLE panier(
-    compQuantiteProduit    INT,
-    compPrixVentePar       FLOAT,
-    compPrixVentePro       FLOAT,
-    produit                CHAR(6),
-    commande               INT
-);
-
-ALTER TABLE panier ADD PRIMARY KEY (produit, commande);
+USE Jarditou;
 
 CREATE TABLE client(
-    CliID           INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Type            BIT(1),
-    Nom             VARCHAR(50),
-    Prenom          VARCHAR(50),
-    Adresse         VARCHAR(100),
-    CP              CHAR(5),
-    Ville           VARCHAR(50),
-    Tel             VARCHAR(10),
-    Mail            VARCHAR(50)
+cli_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+cli_type BIT(1),
+cli_nom VARCHAR(50),
+cli_prenom VARCHAR(50),
+cli_adresse VARCHAR(100),
+cli_cp CHAR(5),
+cli_ville VARCHAR(50),
+cli_tel VARCHAR(10),
+cli_mail VARCHAR(50)
 );
 
-CREATE TABLE produit(
-    ProCode          INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Libelle          VARCHAR(100),
-    Description      VARCHAR(250),
-    Photo            VARCHAR(250),
-    Affichage        BIT(1),
-    PrixAchat        INT,
-    StockPhysique    INT,
-    StockAlerte      INT,
-    fournisseur      INT,
-    rubrique         INT
+
+
+
+CREATE TABLE commande(
+com_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+com_date_commande DATE,
+com_date_livraison DATE,
+com_etat VARCHAR(25),
+com_edition_facture BIT(1),
+com_client_id INT,
+CONSTRAINT FK_commande_client FOREIGN KEY (com_client_id) REFERENCES client(cli_id)
 );
 
-CREATE TABLE fournisseur(
-    FouID                INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Nom                  VARCHAR(50),
-    Adresse              VARCHAR(100),
-    CP                   CHAR(5),
-    Ville                VARCHAR(50),
-    Tel                  VARCHAR(10),
-    Mail                 VARCHAR(50),
-    Type                 BIT(1)
+
+
+CREATE TABLE fournisseurs(
+fou_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+fou_nom VARCHAR(50),
+fou_adresse VARCHAR(100),
+fou_cp CHAR(5),
+fou_ville VARCHAR(50),
+fou_tel VARCHAR(10),
+fou_mail VARCHAR(50),
+fou_type BIT(1)
 );
+
+
 
 CREATE TABLE rubrique(
-    RubID             INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    Libelle           VARCHAR(50)
+rub_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+rub_libelle VARCHAR(50)
 );
 
 
---_________________________________SUITE______________________________
+
+CREATE TABLE produit(
+pro_code INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+pro_libelle VARCHAR(100),
+pro_description VARCHAR(250),
+pro_photo VARCHAR(250),
+pro_affichage BIT(1),
+pro_prix_achat INT,
+pro_stock_phys INT,
+pro_stock_alerte INT,
+pro_fou_id INT,
+pro_rub_id INT,
+CONSTRAINT fk_produit_fou FOREIGN KEY (pro_fou_id) REFERENCES fournisseurs(fou_id),
+CONSTRAINT fk_produit_rub FOREIGN KEY (pro_rub_id) REFERENCES rubrique(rub_id)
+);
 
 
-INSERT INTO `client` (`Nom`,`Prenom`,`Adresse`,`CP`,`Ville`,`Tel`,`Mail`)
+
+
+CREATE TABLE panier(
+pan_quantite INT,
+pan_prix_vente_par FLOAT,
+pan_prix_vente_pro FLOAT,
+pan_produit_code INT,
+pan_com_id INT,
+CONSTRAINT pk_panier PRIMARY KEY (pan_produit_code, pan_com_id),
+CONSTRAINT fk_panier_produit FOREIGN KEY (pan_produit_code) REFERENCES produit(pro_code),
+CONSTRAINT fk_panier_com FOREIGN KEY (pan_com_id) REFERENCES commande(com_id)
+);
+
+
+
+CREATE INDEX idx_com_client ON commande(com_client_id);
+CREATE INDEX idx_com_date ON commande(com_date_commande);
+
+INSERT INTO client(cli_type, cli_nom, cli_prenom, cli_adresse, cli_cp, cli_ville, cli_tel, cli_mail)
 VALUES
-  ("Regan","Bolton","Ap #931-2536 Scelerisque St.","03316","Brest","04 49 71 85 77","amet.ultricies.sem@hotmail.com"),
-  ("Maxwell","Bartlett","461-3993 Ac Street","04938","Gap","04 89 38 24 11","et@yahoo.com"),
-  ("Karina","Rios","208-5623 Ac Rd.","13141","Lisieux","03 53 42 11 84","convallis.in@yahoo.fr"),
-  ("Mariko","Foster","7554 Blandit Avenue","81172","Nîmes","05 87 94 39 77","ornare@gmail.fr"),
-  ("Colt","Valdez","Ap #255-6817 Ultricies Rd.","48181","Rueil-Malmaison","03 83 56 57 96","dictum.magna@yahoo.fr"),
-  ("Cyrus","Mcdaniel","760-9213 Mauris Street","63925","Lisieux","07 30 08 76 12","nulla.interdum.curabitur@hotmail.fr"),
-  ("Abdul","Holt","557-439 Diam. Rd.","82265","Chartres","02 76 84 97 61","nec@hotmail.com"),
-  ("Bell","Wong","547-2125 Nostra, Avenue","16467","Bastia","07 66 45 52 64","semper.auctor@gmail.com"),
-  ("Josiah","Moon","Ap #203-7751 Arcu. Rd.","69855","Metz","09 41 66 72 00","tempus.mauris@hotmail.fr"),
-  ("Lana","Baird","Ap #648-7745 Consectetuer Av.","80000","Amiens","01 04 85 63 58","ut.cursus@gmail.com");
+(0, 'Dupont', 'Jean', '1 rue des Lilas', '75001', 'Paris', '0123456789', 'jean.dupont@mail.com'),
+(0, 'Durand', 'Marie', '2 rue des Roses', '13001', 'Marseille', '0234567890', 'marie.durand@mail.com'),
+(1, 'Martin', 'Pierre', '3 avenue des Peupliers', '69001', 'Lyon', '0345678901', 'pierre.martin@mail.com'),
+(0, 'Dubois', 'Sophie', '4 rue du Chêne', '31000', 'Toulouse', '0456789012', 'sophie.dubois@mail.com'),
+(1, 'Lefebvre', 'Paul', '5 rue des Acacias', '44000', 'Nantes', '0567890123', 'paul.lefebvre@mail.com'),
+(0, 'Moreau', 'Julie', '6 boulevard des Alouettes', '59000', 'Lille', '0678901234', 'julie.moreau@mail.com'),
+(0, 'Garcia', 'David', '7 rue du Soleil', '67000', 'Strasbourg', '0789012345', 'david.garcia@mail.com'),
+(1, 'Petit', 'Isabelle', '8 avenue du Muguet', '75002', 'Paris', '0890123456', 'isabelle.petit@mail.com'),
+(0, 'Roux', 'Thierry', '9 rue du Moulin', '13006', 'Marseille', '0912345678', 'thierry.roux@mail.com'),
+(1, 'Bonnet', 'Claire', '10 rue des Oliviers', '69002', 'Lyon', '0012345678', 'claire.bonnet@mail.com');
 
 
-
---__________________________SUITE________________________
-
-INSERT INTO `myTable` (`Nom`,`Adresse`,`CP`,`Ville`,`Tel`,`Mail`,`Type`)
+INSERT INTO `fournisseurs` (`fou_nom`,`fou_adresse`,`fou_cp`,`fou_ville`,`fou_tel`,`fou_mail`,`fou_type`)
 VALUES
-  ("Morbi Ltd","P.O. Box 284, 1421 Praesent Street","66541","Lambersart","09 22 19 85 18","vehicula@protonmail.edu","0"),
-  ("Orci Ut Institute","649-7764 Et Rd.","57577","Rodez","01 22 66 47 15","ante.ipsum@yahoo.org","1"),
-  ("Urna Convallis Erat LLP","989-9826 Et Street","68517","Troyes","04 26 24 14 86","gravida.sagittis@icloud.couk","0"),
-  ("Magna Nam Ligula Company","3759 Donec Av.","62852","Angers","02 12 16 05 17","pellentesque@icloud.net","1"),
-  ("Odio Aliquam Inc.","P.O. Box 244, 5962 Nec Ave","66466","Mérignac","06 89 30 65 32","metus.sit@hotmail.net","0");
+  ("Cum Associates","4866 Vel Av.","3623","Zutendaal","04 90 23 34 37","a@yahoo.ca","0"),
+  ("Mi Lacinia Institute","388-3315 Enim Ave","08458-38365","Calama","05 17 38 41 85","torquent@google.edu","1"),
+  ("Amet Massa Quisque Limited","P.O. Box 674, 7801 Aliquam Rd.","72416","Chiclayo","01 93 75 32 13","in.lobortis.tellus@aol.net","0"),
+  ("Ut Aliquam Corp.","8464 Turpis Ave","65241-124","Bathurst","07 47 25 34 05","sed.sem@aol.com","0"),
+  ("Ipsum Suspendisse Sagittis LLC","4296 Id Road","3646","Chulucanas","01 64 57 97 23","auctor.mauris@hotmail.edu","1");
 
+INSERT INTO rubrique(rub_libelle)
+VALUES
+("Plantes d'intérieur"),
+("Plantes d'extérieur"),
+('Arbres et arbustes'),
+('Fleurs coupées');
 
+INSERT INTO produit(pro_libelle, pro_description, pro_photo, pro_affichage, pro_prix_achat, pro_stock_phys, pro_stock_alerte, pro_fou_id, pro_rub_id)
+VALUES
+('Orchidée blanche', 'Orchidée blanche à fleurs simples', 'orchidee-blanche.jpg', 1, 10, 20, 5, 1, 1),
+('Roses rouges', 'Bouquet de 12 roses rouges', 'roses-rouges.jpg', 1, 20, 50, 10, 3, 4),
+('Laurier sauce', 'Plante aromatique pour la cuisine', 'laurier-sauce.jpg', 1, 5, 30, 10, 2, 3);
 
---MAIS
+INSERT INTO commande(com_date_commande, com_date_livraison, com_etat, com_edition_facture, com_client_id)
+VALUES
+('2023-02-10', '2023-02-15', 'En cours de livraison', 0, 1),
+('2023-02-08', '2023-02-10', 'Livrée', 1, 2),
+('2023-02-05', '2023-02-08', 'En attente de livraison', 0, 3);
 
-
-
-  #1452 - Cannot add or update a child row: a foreign key constraint fails
-   (`jarditou`.`fournisseur`, CONSTRAINT `fournisseur_ibfk_1` FOREIGN KEY (`FouID`) REFERENCES `produit` (`fournisseur`))
+INSERT INTO panier(pan_quantite, pan_prix_vente_par, pan_prix_vente_pro, pan_produit_code, pan_com_id)
+VALUES
+(1, 15, 10, 1, 1),
+(1, 30, 25, 2, 2),
+(2, 8, 5, 3, 3);
