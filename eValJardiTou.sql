@@ -116,9 +116,26 @@ VALUES
 
 INSERT INTO produit(pro_libelle, pro_description, pro_photo, pro_affichage, pro_prix_achat, pro_stock_phys, pro_stock_alerte, pro_fou_id, pro_rub_id)
 VALUES
-('Orchidée blanche', 'Orchidée blanche à fleurs simples', 'orchidee-blanche.jpg', 1, 10, 20, 5, 1, 1),
-('Roses rouges', 'Bouquet de 12 roses rouges', 'roses-rouges.jpg', 1, 20, 50, 10, 3, 4),
-('Laurier sauce', 'Plante aromatique pour la cuisine', 'laurier-sauce.jpg', 1, 5, 30, 10, 2, 3);
+('Orchidée blanche', 'Orchidée blanche à fleurs simples', 'orchidee-blanche.jpg', 1, 10, 20, 5, 1, 4),
+('Roses rouges', 'Bouquet de 12 roses rouges', 'roses-rouges.jpg', 1, 20, 40, 10, 2, 4),
+('Laurier sauce', 'Plante aromatique pour la cuisine', 'laurier-sauce.jpg', 1, 4, 30, 10, 3, 3),
+('Bouquet de lys', 'Bouquet de 10 lys blancs', 'bouquet-lys.jpg', 1, 30, 40, 10, 4, 2),
+('Hortensia bleu', "Plante d'ornement pour les jardins", 'hortensia-bleu.jpg', 1, 14, 24, 4, 4, 1),
+('Tulipes multicolores', "Bouquet de 20 tulipes de différentes couleurs", "tulipes-multicolores.jpg", 1, 24, 30, 10, 1, 4),
+('Bambou en pot', "Plante d'intérieur facile à entretenir", 'bambou-en-pot.jpg', 1, 7, 40, 10, 2, 4),
+('Couronne de fleurs', 'Couronne de fleurs pour mariage ou funérailles', 'couronne-fleurs.jpg', 1, 40, 10, 4, 3, 3),
+('Plante grasse', 'Plante grasse en pot', 'plante-grasse.jpg', 1, 8, 14, 4, 4, 2),
+('Lys jaunes', 'Bouquet de 10 lys jaunes', 'lys-jaunes.jpg', 1, 24, 30, 10, 4, 1),
+('Rosier', 'Plante grimpante à fleurs roses', 'rosier.jpg', 1, 12, 24, 4, 1, 4),
+('Chrysanthèmes', 'Bouquet de 20 chrysanthèmes de différentes couleurs', 'chrysanthemes.jpg', 1, 20, 40, 10, 2, 4),
+('Fougère', "Plante verte d'intérieur", 'fougere.jpg', 1, 6, 20, 4, 3, 3),
+('Bouquet de pivoines', 'Bouquet de 10 pivoines roses', 'bouquet-pivoines.jpg', 1, 40, 30, 10, 4, 2),
+('Arbre à papillons', 'Petit arbre à fleurs violettes', 'arbre-a-papillons.jpg', 1, 40, 14, 4, 4, 1),
+('Géraniums', 'Lot de 5 géraniums en pot', 'geraniums.jpg', 1, 14, 30, 10, 1, 4),
+('Tulipes rouges', 'Bouquet de 10 tulipes rouges', 'tulipes-rouges.jpg', 1, 14, 40, 8, 2, 4),
+('Lys blancs', 'Bouquet de 6 lys blancs', 'lys-blancs.jpg', 1, 24, 20, 4, 3, 3),
+('Muguet', 'Brin de muguet pour le 1er mai', 'muguet.jpg', 1, 2, 100, 40, 4, 2),
+('Chrysanthèmes', 'Bouquet de 10 chrysanthèmes', 'chrysanthemes.jpg', 1, 12, 30, 10, 4, 1);
 
 INSERT INTO commande(com_date_commande, com_date_livraison, com_etat, com_edition_facture, com_client_id)
 VALUES
@@ -131,3 +148,6 @@ VALUES
 (1, 15, 10, 1, 1),
 (1, 30, 25, 2, 2),
 (2, 8, 5, 3, 3);
+
+
+
