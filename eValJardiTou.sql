@@ -1,3 +1,4 @@
+
 DROP DATABASE IF EXISTS Jarditou;
 
 CREATE DATABASE Jarditou;
@@ -165,3 +166,23 @@ VALUES
 
 
 
+
+
+
+/*CREATE USER gestionnaire IDENTIFIED BY 'password_gestionnaire';
+GRANT SELECT ON produit TO gestionnaire;
+GRANT SELECT ON commande TO gestionnaire;
+GRANT SELECT ON client TO gestionnaire;
+GRANT SELECT ON panier TO gestionnaire;
+
+
+
+CREATE USER approvisionneur IDENTIFIED BY 'password_approvisionneur';
+GRANT SELECT, UPDATE ON produit TO approvisionneur;
+GRANT SELECT ON fournisseur TO approvisionneur;
+
+
+
+
+CREATE USER administrateur IDENTIFIED BY 'password_administrateur';
+GRANT ALL PRIVILEGES ON * TO administrateur;
