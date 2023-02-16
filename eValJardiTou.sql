@@ -141,13 +141,27 @@ INSERT INTO commande(com_date_commande, com_date_livraison, com_etat, com_editio
 VALUES
 ('2023-02-10', '2023-02-15', 'En cours de livraison', 0, 1),
 ('2023-02-08', '2023-02-10', 'Livrée', 1, 2),
-('2023-02-05', '2023-02-08', 'En attente de livraison', 0, 3);
+('2023-02-05', '2023-02-08', 'En attente de livraison', 0, 3),
+('2023-02-11', '2023-02-13', 'En cours de livraison', 0, 4),
+('2023-02-09', '2023-02-11', 'Livrée', 1, 5),
+('2023-02-06', '2023-02-09', 'En attente de livraison', 0, 6),
+('2023-02-12', '2023-02-16', 'En cours de livraison', 0, 7),
+('2023-02-07', '2023-02-10', 'Livrée', 1, 8),
+('2023-02-04', '2023-02-07', 'En attente de livraison', 0, 9),
+('2023-02-13', '2023-02-17', 'En cours de livraison', 0, 10);
 
 INSERT INTO panier(pan_quantite, pan_prix_vente_par, pan_prix_vente_pro, pan_produit_code, pan_com_id)
 VALUES
 (1, 15, 10, 1, 1),
 (1, 30, 25, 2, 2),
-(2, 8, 5, 3, 3);
+(2, 8, 5, 3, 3),
+(3, 12, 8, 4, 4),
+(2, 20, 15, 5, 5),
+(1, 7, 4, 6, 6),
+(4, 18, 12, 7, 7),
+(2, 13, 9, 8, 8),
+(3, 25, 20, 9, 9),
+(1, 10, 7, 10, 10);
 
 
 
