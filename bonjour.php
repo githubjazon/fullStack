@@ -13,6 +13,3 @@
             ?> 
         </body>
     </html>
-
-
-   <p> Je Joue a Minecraft SANS carte graphique ! </p>
