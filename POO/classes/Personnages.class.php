@@ -6,7 +6,7 @@ class Personnage {
     private $age;
     private $sexe;
 
-    public function getNom() {
+    public function getNom() {      //découverte des "Getters et Setters"
         return $this->nom;
     }
 
